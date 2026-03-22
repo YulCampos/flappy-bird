@@ -18,6 +18,13 @@ tuberias[0]={
     x:contexto.canvas.widht,
     y:0
 }
+//VARIABLES AUDIOS
+
+var punto = new Audio()
+punto.src = "Audio/punto.mp3"
+
+
+
 //VARIBLES IMAGENES
 
 var bird = new Image()
@@ -62,15 +69,24 @@ function loop(){
     contexto.drawImage(tuberiaSur,tuberias[i].x,tuberias[i].y+ constante)
     tuberias[i].x--
 
+        if (tuberias[i].y +tuberiaNorte.height < 80) {
+            tuberias[i].y = 0
+        }
+
         if (tuberias[i].x==150) {
             tuberias.push ({
                 x:contexto.canvas.widht,
                 y: Math.floor(Math.random()*tuberiaNorte.height) - tuberiaNorte.height
             })
+
         }
         //COLISIONES
         if (personaje.x + bird.width>=tuberias[i].x && personaje.x <= tuberias[i].x + tuberiaNorte.width && (personaje.y <=tuberias[i].y + tuberiaNorte.height || personaje.y + bird.height >= tuberias[i].y + constante)||personaje.y + bird.height>= contexto.canvas.height - suelo.height){
             location.reload()
+        }
+        if (tuberias[i].x == personaje.x){
+            score++
+            punto.play()
         }
 
     }
